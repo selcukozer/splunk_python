@@ -6,23 +6,6 @@ import splunklib.client as client
 import splunklib.results as results
 import pandas as pd
 
-
-#import numpy as np
-#import xml.etree.cElementTree as et
-#from collections import OrderedDict
-#import csv
-
-# Visualization
-#import matplotlib.pyplot as plt
-#%matplotlib inline
-#import missingno
-#import seaborn as sns
-
-# Feature Selection and Encoding
-#from sklearn.feature_selection import RFE
-#from sklearn.decomposition import PCA
-#from sklearn.preprocessing import OneHotEncoder, LabelEncoder
-
 # Splunk configuration parameters
 HOST = "10.210.149.190"
 PORT = 8089
@@ -79,7 +62,6 @@ def execute_query_bytime(search_query, filename, metric, last_day):
         print(filename_new)
 
         if file_exist(filename_new) == False:    
-            #search_query_new = search_query + ' earliest=-' + str(x+1) + metric + ' latest=-' + str(x) + metric + parse_query
             search_query_new = search_query.replace("|",' earliest=-' + str(x+1) + metric + ' latest=-' + str(x) + metric + ' |',1)
             print('\n')
             print(search_query_new)
@@ -145,11 +127,7 @@ def main():
     | dedup H,U,S,sessionIp \
     | table H,U,S,sessionIp,IPP,hdmModemStatus,hdmStatus,mediumType,nasPortId,pc,_time'
     execute_query_bytime(SEARCH_COMMAND, filename, metric, last_day)
-    #df = read_csvs(filename)
-    #df.to_pickle(filename)
-    #store = HDFStore(filename+'.h5')
-    #store['df'] = df  # save it
-
+    
     # Searching splunk for tasks and requests
     print('Searching for tasks and requests has started')
     filename='splunk_requests'
@@ -170,9 +148,6 @@ def main():
     execute_query_bytime(SEARCH_COMMAND, filename, metric, last_day)
     df = read_csvs(filename)
     df.to_pickle(filename)
-
-    #df = pd.read_csv(StringIO.StringIO(csv_results), encoding='utf8', sep=',', low_memory=False)
-    #df.to_csv('splunk_selcuk_2017q3.csv', sep=',', encoding='utf-8')
 
 if __name__ == "__main__":
     main()
