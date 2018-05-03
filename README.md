@@ -4,5 +4,6 @@ Creating search output as .csv file and pandas dataframe
 
 # Prerequisites:
 - Python 2.7 installation is required
-- Splunk SDK for Python is require
+- Splunk SDK for Python is required
+
 http://dev.splunk.com/view/python-sdk/SP-CAAAEFB
